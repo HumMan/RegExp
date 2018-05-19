@@ -1,28 +1,28 @@
 Unit RegExp;
 interface
 
-//Управляющие символы:
-//  '?', '+', '*' - квантификаторы (ноль или один, один и более, любое число раз соответственно)
-//  '(', ')' - группирующие скобки
-//  '|' - оператор ИЛИ
-//  '[', ']' - альтернативы
-//  '{', '}' - модификаторы (s - пробельные символы справа и слева, r - регистронезависимость)
-//  '#' - ввод символа по коду (#20, #120 и т.д.)
-//  '.' - любой символ
-//  '\' - классы символов и вывод управляющих символов
-//  для ввода самого управляющего символа перед ним ставиться '\',
-//все символы кроме управляющих представляют сами себя
-//Классы символов:
-//Альтернативы:
+//РЈРїСЂР°РІР»СЏСЋС‰РёРµ СЃРёРјРІРѕР»С‹:
+//  '?', '+', '*' - РєРІР°РЅС‚РёС„РёРєР°С‚РѕСЂС‹ (РЅРѕР»СЊ РёР»Рё РѕРґРёРЅ, РѕРґРёРЅ Рё Р±РѕР»РµРµ, Р»СЋР±РѕРµ С‡РёСЃР»Рѕ СЂР°Р· СЃРѕРѕС‚РІРµС‚СЃС‚РІРµРЅРЅРѕ)
+//  '(', ')' - РіСЂСѓРїРїРёСЂСѓСЋС‰РёРµ СЃРєРѕР±РєРё
+//  '|' - РѕРїРµСЂР°С‚РѕСЂ РР›Р
+//  '[', ']' - Р°Р»СЊС‚РµСЂРЅР°С‚РёРІС‹
+//  '{', '}' - РјРѕРґРёС„РёРєР°С‚РѕСЂС‹ (s - РїСЂРѕР±РµР»СЊРЅС‹Рµ СЃРёРјРІРѕР»С‹ СЃРїСЂР°РІР° Рё СЃР»РµРІР°, r - СЂРµРіРёСЃС‚СЂРѕРЅРµР·Р°РІРёСЃРёРјРѕСЃС‚СЊ)
+//  '#' - РІРІРѕРґ СЃРёРјРІРѕР»Р° РїРѕ РєРѕРґСѓ (#20, #120 Рё С‚.Рґ.)
+//  '.' - Р»СЋР±РѕР№ СЃРёРјРІРѕР»
+//  '\' - РєР»Р°СЃСЃС‹ СЃРёРјРІРѕР»РѕРІ Рё РІС‹РІРѕРґ СѓРїСЂР°РІР»СЏСЋС‰РёС… СЃРёРјРІРѕР»РѕРІ
+//  РґР»СЏ РІРІРѕРґР° СЃР°РјРѕРіРѕ СѓРїСЂР°РІР»СЏСЋС‰РµРіРѕ СЃРёРјРІРѕР»Р° РїРµСЂРµРґ РЅРёРј СЃС‚Р°РІРёС‚СЊСЃСЏ '\',
+//РІСЃРµ СЃРёРјРІРѕР»С‹ РєСЂРѕРјРµ СѓРїСЂР°РІР»СЏСЋС‰РёС… РїСЂРµРґСЃС‚Р°РІР»СЏСЋС‚ СЃР°РјРё СЃРµР±СЏ
+//РљР»Р°СЃСЃС‹ СЃРёРјРІРѕР»РѕРІ:
+//РђР»СЊС‚РµСЂРЅР°С‚РёРІС‹:
 
 uses SysUtils;
 
 type
 TarrayOfInt=array of integer;
 
-//DONE: очистка при исключительной ситуации
-//DONE: нормальная обработка #13#10 как двух символов, если потребуется
-//TODO: юникод в будущем
+//DONE: РѕС‡РёСЃС‚РєР° РїСЂРё РёСЃРєР»СЋС‡РёС‚РµР»СЊРЅРѕР№ СЃРёС‚СѓР°С†РёРё
+//DONE: РЅРѕСЂРјР°Р»СЊРЅР°СЏ РѕР±СЂР°Р±РѕС‚РєР° #13#10 РєР°Рє РґРІСѓС… СЃРёРјРІРѕР»РѕРІ, РµСЃР»Рё РїРѕС‚СЂРµР±СѓРµС‚СЃСЏ
+//TODO: СЋРЅРёРєРѕРґ РІ Р±СѓРґСѓС‰РµРј
 
 TbranchType=(
   BT_EMPTY,    //E branch
@@ -49,7 +49,7 @@ end;
 TRegExpSyntaxError=class(Exception)
 end;
 
-//состояние автомата
+//СЃРѕСЃС‚РѕСЏРЅРёРµ Р°РІС‚РѕРјР°С‚Р°
 TFANode=class;
 Tbranch=record
     branch_type:TbranchType;
@@ -72,20 +72,20 @@ end;
 
 TarrayOfTFANode=array of TFANode;
 
-//Недетерминированный конечный автомат (finite automoton)
+//РќРµРґРµС‚РµСЂРјРёРЅРёСЂРѕРІР°РЅРЅС‹Р№ РєРѕРЅРµС‡РЅС‹Р№ Р°РІС‚РѕРјР°С‚ (finite automoton)
 
 TNFA=class(Tobject)
   private
   expr:string;
   expr_length:integer;
   curr_char:integer;
-  //состояния детерминированного автомата
+  //СЃРѕСЃС‚РѕСЏРЅРёСЏ РґРµС‚РµСЂРјРёРЅРёСЂРѕРІР°РЅРЅРѕРіРѕ Р°РІС‚РѕРјР°С‚Р°
   nodes:TarrayOfTFANode;
   nodes_high:integer;
   start,finish:TFANode;
-  //текущий уровень вложенности скобок
+  //С‚РµРєСѓС‰РёР№ СѓСЂРѕРІРµРЅСЊ РІР»РѕР¶РµРЅРЅРѕСЃС‚Рё СЃРєРѕР±РѕРє
   parenthnes_level:integer;
-  //битовый вектор и два массива для моделирования работы автомата (Move, EClosure)
+  //Р±РёС‚РѕРІС‹Р№ РІРµРєС‚РѕСЂ Рё РґРІР° РјР°СЃСЃРёРІР° РґР»СЏ РјРѕРґРµР»РёСЂРѕРІР°РЅРёСЏ СЂР°Р±РѕС‚С‹ Р°РІС‚РѕРјР°С‚Р° (Move, EClosure)
   result_bit_vector:array of boolean;
   curr_states,
   result_states:TarrayOfTFANode;
@@ -117,17 +117,17 @@ TNFA=class(Tobject)
   Destructor Destroy;override;
 end;
 
-//Детерминированный конечный автомат
+//Р”РµС‚РµСЂРјРёРЅРёСЂРѕРІР°РЅРЅС‹Р№ РєРѕРЅРµС‡РЅС‹Р№ Р°РІС‚РѕРјР°С‚
 
 TDFA=class(Tobject)
   private
   nfa:TNFA;
   expr:string;
   curr_char:integer;
-  //состояния детерминированного автомата
+  //СЃРѕСЃС‚РѕСЏРЅРёСЏ РґРµС‚РµСЂРјРёРЅРёСЂРѕРІР°РЅРЅРѕРіРѕ Р°РІС‚РѕРјР°С‚Р°
   nodes:TarrayOfTFANode;
   nodes_high:integer;
-  //множества комбинаций текущих состояний НКА для построения ДКА
+  //РјРЅРѕР¶РµСЃС‚РІР° РєРѕРјР±РёРЅР°С†РёР№ С‚РµРєСѓС‰РёС… СЃРѕСЃС‚РѕСЏРЅРёР№ РќРљРђ РґР»СЏ РїРѕСЃС‚СЂРѕРµРЅРёСЏ Р”РљРђ
   nodes_nfa_states:array of
   record
     states:TarrayOfTFANode;
@@ -179,7 +179,7 @@ begin
   if (use_branch_type=BT_SUBRANGE)and(use_min=use_max) then
     use_branch_type:=BT_CHAR;
   assert((use_branch_type<>BT_NOT_NEW_LINE)and (use_branch_type<>BT_NOT_SPACE));
-  //символ перевода строки является последовательностью двух символов
+  //СЃРёРјРІРѕР» РїРµСЂРµРІРѕРґР° СЃС‚СЂРѕРєРё СЏРІР»СЏРµС‚СЃСЏ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚СЊСЋ РґРІСѓС… СЃРёРјРІРѕР»РѕРІ
   if use_branch_type=BT_NEW_LINE then
   begin
     temp:=CreateNode;
@@ -277,7 +277,7 @@ begin
   val:=#0;
   case expr[curr_char] of
     '?','+','*','(',')','|','[',']','{','}':
-      raise TRegExpSyntaxError.Create('Ошибка в выражении!');
+      raise TRegExpSyntaxError.Create('РћС€РёР±РєР° РІ РІС‹СЂР°Р¶РµРЅРёРё!');
     '#':
     begin
       t:=0;
@@ -290,10 +290,10 @@ begin
           inc(curr_char);
         end;
       end
-      else raise TRegExpSyntaxError.Create('Неожиданный конец выражения после "#"!');
+      else raise TRegExpSyntaxError.Create('РќРµРѕР¶РёРґР°РЅРЅС‹Р№ РєРѕРЅРµС† РІС‹СЂР°Р¶РµРЅРёСЏ РїРѕСЃР»Рµ "#"!');
       btype:=BT_CHAR;
       val:=char(t);
-      if t=13 then raise TRegExpSyntaxError.Create('Сивол #13 используется только в "\n" и "\N"!');
+      if t=13 then raise TRegExpSyntaxError.Create('РЎРёРІРѕР» #13 РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ С‚РѕР»СЊРєРѕ РІ "\n" Рё "\N"!');
     end;
     '.':
     begin
@@ -309,7 +309,7 @@ begin
     begin
       inc(curr_char);
       if alternatives_mode and(expr[curr_char] in['S','W','D','N','T'])then
-        raise TRegExpSyntaxError.Create('Классы символов \S, \W, \D, \N, \T нельзя использовать в качестве альтернатив!');
+        raise TRegExpSyntaxError.Create('РљР»Р°СЃСЃС‹ СЃРёРјРІРѕР»РѕРІ \S, \W, \D, \N, \T РЅРµР»СЊР·СЏ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РІ РєР°С‡РµСЃС‚РІРµ Р°Р»СЊС‚РµСЂРЅР°С‚РёРІ!');
       if (curr_char<=expr_length) then
       begin
         case expr[curr_char] of
@@ -328,11 +328,11 @@ begin
               btype:=BT_CHAR;
               val:=expr[curr_char];
             end;
-        else raise TRegExpSyntaxError.Create('Неизвестный символ после "\"!');
+        else raise TRegExpSyntaxError.Create('РќРµРёР·РІРµСЃС‚РЅС‹Р№ СЃРёРјРІРѕР» РїРѕСЃР»Рµ "\"!');
         end;
         inc(curr_char);
       end
-      else raise TRegExpSyntaxError.Create('Неожиданный конец выражения после "\"!');
+      else raise TRegExpSyntaxError.Create('РќРµРѕР¶РёРґР°РЅРЅС‹Р№ РєРѕРЅРµС† РІС‹СЂР°Р¶РµРЅРёСЏ РїРѕСЃР»Рµ "\"!');
     end;
   else
     begin
@@ -371,8 +371,8 @@ begin
       InitRange(subranges[last-4]  ,'0','9');
       InitRange(subranges[last-3],'A','Z');
       InitRange(subranges[last-2],'a','z');
-      InitRange(subranges[last-1],'А','Я');
-      InitRange(subranges[last],'а','я');
+      InitRange(subranges[last-1],'Рђ','РЇ');
+      InitRange(subranges[last],'Р°','СЏ');
     end;
     BT_DIGIT:
       InitRange(subranges[last]  ,'0','9');
@@ -416,7 +416,7 @@ procedure TNFA.BuildAlternatives(start,finish:TFANode);
 var btype:TbranchType;
     val1,val2,val_temp:char;
     not_alternative,need_search:boolean;
-    subranges:array of TcharRange;// используется для получения инвертирования группы диапазонов ( not(r1 or r2 or ... rn)
+    subranges:array of TcharRange;// РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅРІРµСЂС‚РёСЂРѕРІР°РЅРёСЏ РіСЂСѓРїРїС‹ РґРёР°РїР°Р·РѕРЅРѕРІ ( not(r1 or r2 or ... rn)
     subranges_high,curr_min,curr_max,i:integer;
     temp:TFANode;
     add_new_line_alt:boolean;
@@ -428,36 +428,36 @@ begin
     not_alternative:=true;
     inc(curr_char);
   end else not_alternative:=false;
-  //считываем все альтернативы в subranges, преобразуем в диапазоны и оптимизируем при not_alternative
+  //СЃС‡РёС‚С‹РІР°РµРј РІСЃРµ Р°Р»СЊС‚РµСЂРЅР°С‚РёРІС‹ РІ subranges, РїСЂРµРѕР±СЂР°Р·СѓРµРј РІ РґРёР°РїР°Р·РѕРЅС‹ Рё РѕРїС‚РёРјРёР·РёСЂСѓРµРј РїСЂРё not_alternative
   subranges_high:=-1;
   try
     while (curr_char<=expr_length) and (expr[curr_char]<>']') do
     begin
       GetTerm(true,btype,val1);
-      //Если диапазон символов
+      //Р•СЃР»Рё РґРёР°РїР°Р·РѕРЅ СЃРёРјРІРѕР»РѕРІ
       if(curr_char<=expr_length)and(expr[curr_char]='-')then
       begin
         if btype<>BT_CHAR then
-          raise TRegExpSyntaxError.Create('Оператор диапазона "-" применяется только к символам!');
+          raise TRegExpSyntaxError.Create('РћРїРµСЂР°С‚РѕСЂ РґРёР°РїР°Р·РѕРЅР° "-" РїСЂРёРјРµРЅСЏРµС‚СЃСЏ С‚РѕР»СЊРєРѕ Рє СЃРёРјРІРѕР»Р°Рј!');
         inc(curr_char);
         if (curr_char>expr_length) or (expr[curr_char]=']') then
-          raise TRegExpSyntaxError.Create('Отсутствует второй операнд оператора "-"!');
+          raise TRegExpSyntaxError.Create('РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ РІС‚РѕСЂРѕР№ РѕРїРµСЂР°РЅРґ РѕРїРµСЂР°С‚РѕСЂР° "-"!');
         GetTerm(true,btype,val2);
         if btype<>BT_CHAR then
-          raise TRegExpSyntaxError.Create('Оператор диапазона "-" применяется только к символам!');
+          raise TRegExpSyntaxError.Create('РћРїРµСЂР°С‚РѕСЂ РґРёР°РїР°Р·РѕРЅР° "-" РїСЂРёРјРµРЅСЏРµС‚СЃСЏ С‚РѕР»СЊРєРѕ Рє СЃРёРјРІРѕР»Р°Рј!');
         if ord(val1)>ord(val2) then
         begin val_temp:=val1;val1:=val2;val2:=val_temp; end;
-        //Если отрицательная альтернатива
+        //Р•СЃР»Рё РѕС‚СЂРёС†Р°С‚РµР»СЊРЅР°СЏ Р°Р»СЊС‚РµСЂРЅР°С‚РёРІР°
         if not_alternative then
         begin
           inc(subranges_high);
           setlength(subranges,subranges_high+1);
           InitRange(subranges[subranges_high],val1,val2);
         end
-        //Если не отрицательная альтернатива
+        //Р•СЃР»Рё РЅРµ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅР°СЏ Р°Р»СЊС‚РµСЂРЅР°С‚РёРІР°
         else AddBranch(start,finish,BT_SUBRANGE,val1,val2);
       end
-      //Если не диапазон и отрицательная альтернатива"[^"
+      //Р•СЃР»Рё РЅРµ РґРёР°РїР°Р·РѕРЅ Рё РѕС‚СЂРёС†Р°С‚РµР»СЊРЅР°СЏ Р°Р»СЊС‚РµСЂРЅР°С‚РёРІР°"[^"
       else if not_alternative then
       begin
         if (btype=BT_NEW_LINE)or(btype=BT_SPACE) then add_new_line_alt:=true;
@@ -465,11 +465,11 @@ begin
         setlength(subranges,subranges_high+1);
         GetRanges(subranges,btype,subranges_high,val1);
       end
-      //Если не диапазон и не отрицательная альтернатива
+      //Р•СЃР»Рё РЅРµ РґРёР°РїР°Р·РѕРЅ Рё РЅРµ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅР°СЏ Р°Р»СЊС‚РµСЂРЅР°С‚РёРІР°
       else AddBranch(start,finish,btype,val1);
     end;
-    //subranges содержит запрещенные диапазоны символов
-    //поэтому находим не запрещенные участки и добавляем в переходы
+    //subranges СЃРѕРґРµСЂР¶РёС‚ Р·Р°РїСЂРµС‰РµРЅРЅС‹Рµ РґРёР°РїР°Р·РѕРЅС‹ СЃРёРјРІРѕР»РѕРІ
+    //РїРѕСЌС‚РѕРјСѓ РЅР°С…РѕРґРёРј РЅРµ Р·Р°РїСЂРµС‰РµРЅРЅС‹Рµ СѓС‡Р°СЃС‚РєРё Рё РґРѕР±Р°РІР»СЏРµРј РІ РїРµСЂРµС…РѕРґС‹
     if not_alternative then
     begin
       curr_min:=0;
@@ -491,7 +491,7 @@ begin
         for i:=0 to subranges_high do
           if (subranges[i].min>curr_min) and (subranges[i].min<=curr_max) then
             curr_max:=subranges[i].min-1;
-        //добавляем диапазон в branch
+        //РґРѕР±Р°РІР»СЏРµРј РґРёР°РїР°Р·РѕРЅ РІ branch
         if curr_min= curr_max then
           AddBranch(start,finish,BT_CHAR,char(curr_min))
         else
@@ -499,8 +499,8 @@ begin
         curr_min:=curr_max+1;
         curr_max:=255;
       end;
-      //т.к. перевод строки представляется двумя символами(#13#10),
-      //то сначала проверяем не запрещен ли уже #13, а затем добавляем обработку #10
+      //С‚.Рє. РїРµСЂРµРІРѕРґ СЃС‚СЂРѕРєРё РїСЂРµРґСЃС‚Р°РІР»СЏРµС‚СЃСЏ РґРІСѓРјСЏ СЃРёРјРІРѕР»Р°РјРё(#13#10),
+      //С‚Рѕ СЃРЅР°С‡Р°Р»Р° РїСЂРѕРІРµСЂСЏРµРј РЅРµ Р·Р°РїСЂРµС‰РµРЅ Р»Рё СѓР¶Рµ #13, Р° Р·Р°С‚РµРј РґРѕР±Р°РІР»СЏРµРј РѕР±СЂР°Р±РѕС‚РєСѓ #10
       if add_new_line_alt then
       begin
         temp:=CreateNode;
@@ -520,7 +520,7 @@ begin
   ClearFlag(nodes);
 end;
 
-//TODO: преобразование регистров для русских букв
+//TODO: РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ СЂРµРіРёСЃС‚СЂРѕРІ РґР»СЏ СЂСѓСЃСЃРєРёС… Р±СѓРєРІ
 function GetAlternativeRegister(c1,c2:char;var res1,res2:char;to_upper:boolean):boolean;overload;
 var t1,t2:char;
 begin
@@ -556,8 +556,8 @@ begin
   case c of
   'a'..'z':res:=char(ord(c)-ord('a')+ord('A'));
   'A'..'Z':res:=char(ord(c)+ord('a')-ord('A'));
-  'а'..'я':res:=char(ord(c)-ord('я')+ord('Я'));
-  'А'..'Я':res:=char(ord(c)+ord('я')-ord('Я'));
+  'Р°'..'СЏ':res:=char(ord(c)-ord('СЏ')+ord('РЇ'));
+  'Рђ'..'РЇ':res:=char(ord(c)+ord('СЏ')-ord('РЇ'));
   else result:=false;
   end;
 end;
@@ -597,7 +597,7 @@ var temp,temp1,temp2,temp3:TFANode;
     val1:char;
 begin
   case level of
-  0://оператор |
+  0://РѕРїРµСЂР°С‚РѕСЂ |
     begin
       BuildNFA(start,finish,1);
       while (curr_char<=expr_length)and(expr[curr_char]='|') do
@@ -606,9 +606,9 @@ begin
         BuildNFA(start,finish,1);
       end;
     end;
-  1://конкатезация
+  1://РєРѕРЅРєР°С‚РµР·Р°С†РёСЏ
     begin
-      //прерывается если встречается более низкий по приоритету оператор или закрывающая скобка
+      //РїСЂРµСЂС‹РІР°РµС‚СЃСЏ РµСЃР»Рё РІСЃС‚СЂРµС‡Р°РµС‚СЃСЏ Р±РѕР»РµРµ РЅРёР·РєРёР№ РїРѕ РїСЂРёРѕСЂРёС‚РµС‚Сѓ РѕРїРµСЂР°С‚РѕСЂ РёР»Рё Р·Р°РєСЂС‹РІР°СЋС‰Р°СЏ СЃРєРѕР±РєР°
       while (curr_char<=expr_length)and(expr[curr_char]<>'|')and (expr[curr_char]<>')') do
       begin
         temp:=CreateNode;
@@ -616,10 +616,10 @@ begin
         start:=temp;
       end;
       if(curr_char<=expr_length)and(expr[curr_char]=')')and(parenthnes_level=0)then
-        raise TRegExpSyntaxError.Create('Лишняя закрывающая круглая скобка!');
+        raise TRegExpSyntaxError.Create('Р›РёС€РЅСЏСЏ Р·Р°РєСЂС‹РІР°СЋС‰Р°СЏ РєСЂСѓРіР»Р°СЏ СЃРєРѕР±РєР°!');
       AddBranch(start,finish);
     end;
-  2:// операторы * + ?
+  2:// РѕРїРµСЂР°С‚РѕСЂС‹ * + ?
     begin
       temp:=CreateNode;
       temp1:=CreateNode;
@@ -667,7 +667,7 @@ begin
                 end;
             end;
             if(curr_char>expr_length)or(expr[curr_char]<>'}')then
-              raise TRegExpSyntaxError.Create('Ожидалась закрывающая фигурная скобка!');
+              raise TRegExpSyntaxError.Create('РћР¶РёРґР°Р»Р°СЃСЊ Р·Р°РєСЂС‹РІР°СЋС‰Р°СЏ С„РёРіСѓСЂРЅР°СЏ СЃРєРѕР±РєР°!');
             inc(curr_char);
           end;
         end;
@@ -679,19 +679,19 @@ begin
       begin
         //
         case expr[curr_char] of
-          '['://альтернативы []
+          '['://Р°Р»СЊС‚РµСЂРЅР°С‚РёРІС‹ []
           begin
             BuildAlternatives(start,finish);
             if (curr_char<=expr_length) and (expr[curr_char]=']') then inc(curr_char)
-            else raise TRegExpSyntaxError.Create('Ожидалась закрывающая квадратная скобка!');
+            else raise TRegExpSyntaxError.Create('РћР¶РёРґР°Р»Р°СЃСЊ Р·Р°РєСЂС‹РІР°СЋС‰Р°СЏ РєРІР°РґСЂР°С‚РЅР°СЏ СЃРєРѕР±РєР°!');
           end;
-          '('://скобки ()
+          '('://СЃРєРѕР±РєРё ()
           begin
             inc(parenthnes_level);
             inc(curr_char);
             BuildNFA(start,finish,0);
             if (curr_char<=expr_length) and (expr[curr_char]=')') then inc(curr_char)
-            else raise TRegExpSyntaxError.Create('Ожидалась закрывающая круглая скобка!');
+            else raise TRegExpSyntaxError.Create('РћР¶РёРґР°Р»Р°СЃСЊ Р·Р°РєСЂС‹РІР°СЋС‰Р°СЏ РєСЂСѓРіР»Р°СЏ СЃРєРѕР±РєР°!');
             dec(parenthnes_level);
           end;
         else
@@ -725,12 +725,12 @@ end;
 
 function TNFA.Move(a:char):boolean;
 //##############################################################################
-//TNFA.Move вычисляет все состояния автомата после чтения входного символа
+//TNFA.Move РІС‹С‡РёСЃР»СЏРµС‚ РІСЃРµ СЃРѕСЃС‚РѕСЏРЅРёСЏ Р°РІС‚РѕРјР°С‚Р° РїРѕСЃР»Рµ С‡С‚РµРЅРёСЏ РІС…РѕРґРЅРѕРіРѕ СЃРёРјРІРѕР»Р°
 //in:
-//  a - входной символ
-//  curr_states - текущие состояния автомата
+//  a - РІС…РѕРґРЅРѕР№ СЃРёРјРІРѕР»
+//  curr_states - С‚РµРєСѓС‰РёРµ СЃРѕСЃС‚РѕСЏРЅРёСЏ Р°РІС‚РѕРјР°С‚Р°
 //out:
-//  curr_states - состояния после чтения
+//  curr_states - СЃРѕСЃС‚РѕСЏРЅРёСЏ РїРѕСЃР»Рµ С‡С‚РµРЅРёСЏ
 //temp:
 //  result_states, result_bit_vector
 //##############################################################################
@@ -749,11 +749,11 @@ begin
         r:=false;
         case branches[k].branch_type of
           BT_CHAR: r:= a=branches[k].min;
-          BT_WORD: r:= a in ['0'..'9','A'..'Z','a'..'z','А'..'Я','а'..'я'];
+          BT_WORD: r:= a in ['0'..'9','A'..'Z','a'..'z','Рђ'..'РЇ','Р°'..'СЏ'];
           BT_DIGIT:r:= a in ['0'..'9'];
           BT_SUBRANGE: r:= ord(a) in [ord(branches[k].min)..ord(branches[k].max)];
           BT_NOT_CHAR: r:= a<>branches[k].min;
-          BT_NOT_WORD: r:= not (a in ['0'..'9','A'..'Z','a'..'z','А'..'Я','а'..'я']);
+          BT_NOT_WORD: r:= not (a in ['0'..'9','A'..'Z','a'..'z','Рђ'..'РЇ','Р°'..'СЏ']);
           BT_NOT_DIGIT: r:= not(a in ['0'..'9']);
           BT_ANY_CHAR: r:=true;
           BT_TAB: r:= a=#9;
@@ -780,11 +780,11 @@ end;
 
 procedure TNFA.EClosure(except_unimportant_nodes:boolean=false);
 //##############################################################################
-//TNFA.EClosure вычисляет E замыкание автомата
+//TNFA.EClosure РІС‹С‡РёСЃР»СЏРµС‚ E Р·Р°РјС‹РєР°РЅРёРµ Р°РІС‚РѕРјР°С‚Р°
 //in:
-//  curr_states - текущие состояния автомата
+//  curr_states - С‚РµРєСѓС‰РёРµ СЃРѕСЃС‚РѕСЏРЅРёСЏ Р°РІС‚РѕРјР°С‚Р°
 //out:
-//  curr_states - состояния после E замыкания
+//  curr_states - СЃРѕСЃС‚РѕСЏРЅРёСЏ РїРѕСЃР»Рµ E Р·Р°РјС‹РєР°РЅРёСЏ
 //temp:
 //  result_states, result_bit_vector
 //##############################################################################
@@ -826,12 +826,12 @@ begin
   curr_states_high:=result_states_high;
   //
   if(except_unimportant_nodes)then
-  //этот блок исользуется в ДКА для исключения неважных состояний
+  //СЌС‚РѕС‚ Р±Р»РѕРє РёСЃРѕР»СЊР·СѓРµС‚СЃСЏ РІ Р”РљРђ РґР»СЏ РёСЃРєР»СЋС‡РµРЅРёСЏ РЅРµРІР°Р¶РЅС‹С… СЃРѕСЃС‚РѕСЏРЅРёР№
   begin
     result_states_high:=-1;
     for i:=0 to curr_states_high do with curr_states[i] do
     begin
-      //конечное состояние пропускаем без проверки
+      //РєРѕРЅРµС‡РЅРѕРµ СЃРѕСЃС‚РѕСЏРЅРёРµ РїСЂРѕРїСѓСЃРєР°РµРј Р±РµР· РїСЂРѕРІРµСЂРєРё
       if(curr_states[i]=finish)then goto end_search;
       //
       for k:=0 to High(branches) do
@@ -900,7 +900,7 @@ begin
   for i:=0 to nodes_high do
   begin
     with nodes[i] do
-      //Входящий и исходящий переход пуст (является E переходом)
+      //Р’С…РѕРґСЏС‰РёР№ Рё РёСЃС…РѕРґСЏС‰РёР№ РїРµСЂРµС…РѕРґ РїСѓСЃС‚ (СЏРІР»СЏРµС‚СЃСЏ E РїРµСЂРµС…РѕРґРѕРј)
       if(High(branches_in)=0) and (High(branches)=0)
         and (branches_in[0].branch_type=BT_EMPTY)
         and (branches[0].branch_type=   BT_EMPTY)then
@@ -916,7 +916,7 @@ begin
       begin
         for t:=0 to High(branches) do
           if branches[t].branch_type=BT_EMPTY then goto end_search1;
-        //Входной переход пуст, а все исходящие переходы не пусты
+        //Р’С…РѕРґРЅРѕР№ РїРµСЂРµС…РѕРґ РїСѓСЃС‚, Р° РІСЃРµ РёСЃС…РѕРґСЏС‰РёРµ РїРµСЂРµС…РѕРґС‹ РЅРµ РїСѓСЃС‚С‹
         for t:=0 to High(branches) do
           ReplaceBranch(branches[t].target_node.branches_in,nodes[i],
             branches_in[0].target_node);
@@ -931,7 +931,7 @@ begin
         end_search1:
       end
       else
-      //Все входные переходы не пусты, а единственный исходящий переход пуст
+      //Р’СЃРµ РІС…РѕРґРЅС‹Рµ РїРµСЂРµС…РѕРґС‹ РЅРµ РїСѓСЃС‚С‹, Р° РµРґРёРЅСЃС‚РІРµРЅРЅС‹Р№ РёСЃС…РѕРґСЏС‰РёР№ РїРµСЂРµС…РѕРґ РїСѓСЃС‚
       if(High(branches)=0) and (branches[0].branch_type=BT_EMPTY)and(High(branches_in)>=0)then
       begin
         for t:=0 to High(branches_in) do
@@ -1003,8 +1003,8 @@ begin
     BuildNFA(start,finish,0);
     Optimize;
     nodes_high:=-1;    //
-    SetLength(nodes,0);//после оптимизации некоторые nodes могут стать удаленными
-    GetAllNodes(start);//поэтому получаем список всех nodes заново
+    SetLength(nodes,0);//РїРѕСЃР»Рµ РѕРїС‚РёРјРёР·Р°С†РёРё РЅРµРєРѕС‚РѕСЂС‹Рµ nodes РјРѕРіСѓС‚ СЃС‚Р°С‚СЊ СѓРґР°Р»РµРЅРЅС‹РјРё
+    GetAllNodes(start);//РїРѕСЌС‚РѕРјСѓ РїРѕР»СѓС‡Р°РµРј СЃРїРёСЃРѕРє РІСЃРµС… nodes Р·Р°РЅРѕРІРѕ
     ClearFlag(nodes);  //
     l:=nodes_high+1;
     SetLength(curr_states,l);
@@ -1146,7 +1146,7 @@ var alphabet:array of TcharRange;
     exist_not_checked,empty_flag:boolean;
 label end_cycle,end_start_search;
 begin
-  //инициализируем первое состояние ДКА и обозначаем его не помеченым
+  //РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РїРµСЂРІРѕРµ СЃРѕСЃС‚РѕСЏРЅРёРµ Р”РљРђ Рё РѕР±РѕР·РЅР°С‡Р°РµРј РµРіРѕ РЅРµ РїРѕРјРµС‡РµРЅС‹Рј
   nfa.curr_states_high:=0;
   nfa.curr_states[0]:=nfa.start;
   nfa.EClosure;
@@ -1168,7 +1168,7 @@ begin
         begin
           exist_not_checked:=true;
           checked:=true;
-          //Формируем алфавит для данного состояния ДКА
+          //Р¤РѕСЂРјРёСЂСѓРµРј Р°Р»С„Р°РІРёС‚ РґР»СЏ РґР°РЅРЅРѕРіРѕ СЃРѕСЃС‚РѕСЏРЅРёСЏ Р”РљРђ
           alphabet_high:=-1;
           SetLength(alphabet,0);
           for t:=0 to High(states) do
@@ -1179,18 +1179,18 @@ begin
                 SetLength(alphabet,alphabet_high+1);
                 GetRanges(alphabet,branch_type,alphabet_high,min,max);
               end;
-          //Для каждого символа алфавита получаем новое множество состояний НКА
+          //Р”Р»СЏ РєР°Р¶РґРѕРіРѕ СЃРёРјРІРѕР»Р° Р°Р»С„Р°РІРёС‚Р° РїРѕР»СѓС‡Р°РµРј РЅРѕРІРѕРµ РјРЅРѕР¶РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№ РќРљРђ
           curr_min:=-1;
           while(curr_min<255)do
           begin
             //
             curr_char:=256;
-            //Определяем наименьший диапазон содержащий одинаковые символы
+            //РћРїСЂРµРґРµР»СЏРµРј РЅР°РёРјРµРЅСЊС€РёР№ РґРёР°РїР°Р·РѕРЅ СЃРѕРґРµСЂР¶Р°С‰РёР№ РѕРґРёРЅР°РєРѕРІС‹Рµ СЃРёРјРІРѕР»С‹
             for t:=0 to alphabet_high do with alphabet[t] do
               if (min>curr_min) and (min<=curr_char) then curr_char:=min-1
               else
               if (max>=curr_min) and (max<curr_char) then curr_char:=max;
-            //Определяем является ли этот диапазон не пустым
+            //РћРїСЂРµРґРµР»СЏРµРј СЏРІР»СЏРµС‚СЃСЏ Р»Рё СЌС‚РѕС‚ РґРёР°РїР°Р·РѕРЅ РЅРµ РїСѓСЃС‚С‹Рј
             empty_flag:=true;
             for t:=0 to alphabet_high do with alphabet[t] do
               if (curr_char>=min)and(curr_char<=max)then
@@ -1205,13 +1205,13 @@ begin
               continue;
             end;
             if empty_flag then continue;
-            //Получаем новое множество состояний НКА
+            //РџРѕР»СѓС‡Р°РµРј РЅРѕРІРѕРµ РјРЅРѕР¶РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№ РќРљРђ
             nfa.curr_states_high:=High(nodes_nfa_states[i].states);
             CopyFromTo(nodes_nfa_states[i].states,nfa.curr_states,nfa.curr_states_high);
             if not nfa.Move(char(curr_char))then assert(false);
             nfa.EClosure(true);
             n:=-1;
-            //Определяем, имеется ли новое множество состояний в nodes_nfa_states
+            //РћРїСЂРµРґРµР»СЏРµРј, РёРјРµРµС‚СЃСЏ Р»Рё РЅРѕРІРѕРµ РјРЅРѕР¶РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№ РІ nodes_nfa_states
             for k:=0 to nodes_high do
             begin
               h:=High(nodes_nfa_states[k].states);
@@ -1221,7 +1221,7 @@ begin
                 break;
               end;
             end;
-            //Если новое множество состояний раньше не обрабатывалось, то добаляем как необработанное
+            //Р•СЃР»Рё РЅРѕРІРѕРµ РјРЅРѕР¶РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№ СЂР°РЅСЊС€Рµ РЅРµ РѕР±СЂР°Р±Р°С‚С‹РІР°Р»РѕСЃСЊ, С‚Рѕ РґРѕР±Р°Р»СЏРµРј РєР°Рє РЅРµРѕР±СЂР°Р±РѕС‚Р°РЅРЅРѕРµ
             if n=-1 then
             begin
               inc(nodes_high);
